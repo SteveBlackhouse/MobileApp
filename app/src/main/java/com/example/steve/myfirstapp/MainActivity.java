@@ -1,55 +1,49 @@
 package com.example.steve.myfirstapp;
-import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.Objects;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
-    private EditText nameInput;
-    private TextView messageLabel;
+    private final static String TAG = "List";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        makeCall();
+    }
+  
+    public void makeCall() {
+        Call<AnimeResList> call = ApplicationEx.getApiService().getAnimeResData();
+        call.clone().enqueue(new Callback<AnimeResList>() {
+            @Override
+            public void onResponse(Call <AnimeResList> call, Response<AnimeResList> response) {
+                Log.d(TAG, "onResponse: Server Response: " + response.toString());
+                Log.d(TAG, "onResponse: received information: " +
+                        Objects.requireNonNull(response.body()).toString());
+                ArrayList<AnimeRes> animeRes = response.body().getAnimeResList();
+                displayData(animeRes);
+            }
 
-        nameInput = findViewById(R.id.et_input);
-        messageLabel = findViewById(R.id.tv_data);
-        initShowNameButton();
-        initClearButton();
-        // Get the widgets reference from XML layout
-    }
-    public void initShowNameButton() {
-        findViewById(R.id.btn_showdata).setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        updateHelloMessage();
-                    }
-                }
-        );
-    }
-    private void initClearButton() {
-        findViewById(R.id.btn).setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        nameInput.setText("");
-                    }
-                }
-        );
-    }
-    private void updateHelloMessage() {
-        String name = nameInput.getText().toString();
+            @Override
+            public void onFailure(Call <AnimeResList> call, Throwable t) {
+                Log.d("onFailure", t.getMessage());
+            }
 
-        messageLabel.setText("Hello " + name);
+            private void displayData(ArrayList <AnimeRes> animeRes) {
+                for (int i = 0; i < animeRes.size(); i++) {
+                    Log.d("Data", animeRes.get(i).toString() +
+                            "\n--------------------------------------");
+                }
+            }
+        });
     }
 }
-
-
-
-
-
-
-
