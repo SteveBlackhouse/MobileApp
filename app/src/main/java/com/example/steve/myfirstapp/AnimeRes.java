@@ -17,14 +17,29 @@ public class AnimeRes {
     @Expose
     private String type;
 
+
+    @SerializedName("attributes")
+    @Expose
+    private Attributes attributes;
+
     @Override
     public String toString() {
         return "AnimeRes{" +
                 "id='" + id + '\'' +
                 ", canonicalTitle='" + canonicalTitle + '\'' +
                 ", type='" + type + '\'' +
+                ", attributes=" + attributes +
                 '}';
     }
+
+    public Attributes getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(Attributes attributes) {
+        this.attributes = attributes;
+    }
+
 
     public String getType() {
         return type;

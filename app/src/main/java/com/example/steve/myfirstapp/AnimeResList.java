@@ -10,7 +10,7 @@ public class AnimeResList {
     @Expose
     private ArrayList<AnimeRes> AnimeResList;
 
-    ArrayList<AnimeRes> getAnimeResList() {
+    public ArrayList<AnimeRes> getAnimeResList() {
         return AnimeResList;
     }
 
