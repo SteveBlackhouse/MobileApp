@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         makeCall();
     }
-
+  
     public void makeCall() {
         Call<AnimeResList> call = ApplicationEx.getApiService().getAnimeResData();
         call.clone().enqueue(new Callback<AnimeResList>() {
