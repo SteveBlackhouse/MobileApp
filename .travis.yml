@@ -32,3 +32,13 @@ android:
     # if you need to run emulator(s) during your tests
     - sys-img-x86-android-28
     - sys-img-armeabi-v7a-android-17
+
+deploy:
+  provider: releases
+  api_key:
+    secure: ${Lab9}
+  file: "app/build/outputs/apk/debug/app-debug.apk"
+  skip_cleanup: true
+  on:
+    tags: false
+    all_branches: true
