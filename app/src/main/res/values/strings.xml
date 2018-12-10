@@ -10,6 +10,12 @@
     <string name="users_list">User List</string>
     <string name="successful_response">successful_response</string>
     <string name="unsuccessful_response">unsuccessful_response</string>
+    <string name="on_failure">Something went wrong...Please try later!</string>
+    <string name="no_data">No data</string>
+    <string name="Weight_class">Weight class: %s</string>
+    <string name="draws">Draws: %d</string>
+    <string name="wins">Wins: %d</string>
+    <string name="losses">Losses: %d</string>
 
 
 </resources>

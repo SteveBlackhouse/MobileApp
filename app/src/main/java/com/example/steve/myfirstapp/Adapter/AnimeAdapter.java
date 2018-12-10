@@ -11,34 +11,31 @@ import android.view.ViewGroup;
 import com.example.steve.myfirstapp.Activity.MainActivity;
 import com.example.steve.myfirstapp.AnimeRes;
 import com.example.steve.myfirstapp.Attributes;
+import com.example.steve.myfirstapp.Http_Client.ApplicationEx;
 import com.example.steve.myfirstapp.R;
 import com.example.steve.myfirstapp.fragments.DetailsFragment;
 import com.google.gson.Gson;
+import com.squareup.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class AnimeAdapter extends RecyclerView.Adapter <ViewHolder> {
-
     private static final String DETAILS = "details__fragment";
     private ArrayList <AnimeRes> anime;
-    private final Context context;
+    private ArrayList<AnimeRes> animeRes;
+    private Context context;
 
-    public AnimeAdapter(Context context, ArrayList <AnimeRes> animeRes) {
+    public AnimeAdapter(Context context,ArrayList<AnimeRes> animeRes){
         this.context = context;
-        anime = animeRes;
-    }
+        this.animeRes = animeRes;
 
-    public void loadData(ArrayList <AnimeRes> animeRes) {
-        int position = getItemCount();
-        this.anime.addAll(animeRes);
-        notifyItemRangeInserted(position, this.anime.size());
     }
 
     @Override
-    public final ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.info,
-                parent, false);
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+        View view = layoutInflater.inflate(R.layout.info, parent, false);
         return new ViewHolder(view);
     }
 
@@ -60,19 +57,14 @@ public class AnimeAdapter extends RecyclerView.Adapter <ViewHolder> {
         });
     }
 
-
-    public void clear() {
-        anime.clear();
-        notifyDataSetChanged();
-    }
-
     @Override
     public int getItemCount() {
-        return anime.size();
+        return Math.min(animeRes.size(),10);
     }
 
-    public void setItems(ArrayList <AnimeRes> photos) {
-        this.anime = photos;
+    public void updateList(ArrayList<AnimeRes> fighters) {
+        this.animeRes.clear();
+        this.animeRes.addAll(fighters);
+        notifyDataSetChanged();
     }
-
 }
